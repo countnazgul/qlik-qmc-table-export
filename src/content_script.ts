@@ -3,6 +3,11 @@ type IReturn = {
     message?: string;
 };
 
+const mainTableQuery: string = "qmc-table qmc-table-columns table";
+const headersQuery: string = "qmc-table qmc-table-columns table thead tr th";
+const tableQuery: string = "qmc-table qmc-table-rows .tableContainer table";
+const customPropClass: string = "qmc-table-value";
+
 chrome.runtime.onMessage.addListener(
     function (request, sender, sendResponse) {
         if (request.message === "getTableData") {
@@ -18,7 +23,7 @@ chrome.runtime.onMessage.addListener(
 );
 
 function checkForTables(): IReturn {
-    let headers = document.querySelectorAll('qmc-table qmc-table-columns table')
+    let headers = document.querySelectorAll(mainTableQuery)
 
     if (headers.length == 0) return {
         error: true,
@@ -34,25 +39,39 @@ function checkForTables(): IReturn {
 }
 
 function getTableData(): IReturn {
-    let headers = document.querySelectorAll('qmc-table qmc-table-columns table thead tr th')
+    let headers = document.querySelectorAll(headersQuery)
 
     let data = []
     let h = []
 
     for (let header of headers) {
-        let text = header.innerText.replace(/\"/g, "\"\"").replace(/[\n\r]+/g, "").replace(/[\t]+/g, "").replace(/[^a-zA-Z0-9 ]+/g, "")
-            ;
+        let text = `"${header.innerText.replace(/\"/g, "\"\"").replace(/[\n\r]+/g, "").replace(/[\t]+/g, "").replace(/[^a-zA-Z0-9 @]+/g, "")}"`;
         h.push(`${text}`)
     }
 
     data.push(h.join(','))
 
-    let table = document.querySelectorAll('qmc-table qmc-table-rows .tableContainer table')
+    let table = document.querySelectorAll(tableQuery)
 
     for (var i = 0, row; row = table[0].rows[i]; i++) {
         let rowData = []
         for (var j = 0, col; col = row.cells[j]; j++) {
-            let text = col.innerText.replace(/\"/g, "\"\"");
+            let text = ""
+
+            if (col.children.length > 0 && col.children[0].nodeName == 'DIV') {
+                let classList = col.children[0].classList
+                if (classList.contains(customPropClass) > -1) {
+                    let customPropValues = []
+                    for (let child of col.children) {
+                        customPropValues.push(child.innerText)
+                    }
+
+                    text = `"${customPropValues.join(',')}"`
+                }
+            } else {
+                text = `"${col.innerText.replace(/\"/g, "\"\"")}"`;
+            }
+
             rowData.push(`${text}`)
         }
 

@@ -1,10 +1,19 @@
 {
-    "name": "chrome-extension-svelte-typescript-boilerplate",
-    "version": "0.0.1",
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/nekitcorp/chrome-extension-svelte-typescript-boilerplate.git"
+    "name": "qlik-qmc-tables-export",
+    "description": "Chrome extension to export Qlik QMC tables to CSV",
+    "version": "0.0.2",
+    "author": {
+        "email": "stefan.stoichev@gmail.com",
+        "name": "Stefan Stoichev @countnazgul",
+        "url": "https://sstoichev.eu"
     },
+    "license": "MIT",
+    "keywords": [
+        "qlik",
+        "sense",
+        "repository",
+        "qmc"
+    ],
     "scripts": {
         "build": "rollup -c",
         "dev": "rollup -c -w",
@@ -28,5 +37,9 @@
     "dependencies": {
         "file-saver": "^2.0.5",
         "uuid": "^8.3.2"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/countnazgul/qlik-qmc-table-export.git"
     }
 }

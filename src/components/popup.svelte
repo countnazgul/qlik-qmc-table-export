@@ -16,6 +16,7 @@
                 let blob = new Blob([response.message], {
                     type: "text/csv;charset=utf-8",
                 });
+                
                 saveAs(blob, `${fileName}.csv`, { autoBom: true });
             }
         );
