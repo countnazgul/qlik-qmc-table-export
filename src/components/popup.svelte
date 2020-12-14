@@ -5,7 +5,8 @@
 
     let activeTabId: number;
     let errorMessage: string = "";
-    let isError: boolean = false;
+    let errorLink: boolean = false;
+    let isError: boolean = true;
     let fileName: string;
 
     function exportTable(): any {
@@ -16,10 +17,30 @@
                 let blob = new Blob([response.message], {
                     type: "text/csv;charset=utf-8",
                 });
-                
+
                 saveAs(blob, `${fileName}.csv`, { autoBom: true });
             }
         );
+    }
+
+    function parseResponse(response) {
+        if (!response) {
+            errorMessage = "Unknown error";
+            isError = true;
+            return true;
+        }
+
+        if (response.error) {
+            errorMessage = response.message;
+            isError = true;
+            return true;
+        }
+
+        if (!response.error) {
+            fileName = uuidv4();
+            isError = false;
+            return true;
+        }
     }
 
     onMount(async () => {
@@ -31,14 +52,12 @@
                 activeTabId,
                 { message: "check" },
                 function (response) {
-                    if (response.error) {
-                        errorMessage = response.message;
+                    if (chrome.runtime.lastError) {
+                        errorMessage = "No access to this host";
+                        errorLink = true;
                         isError = true;
-                    }
-
-                    if (!response.error) {
-                        fileName = uuidv4();
-                        isError = false;
+                    } else {
+                        parseResponse(response);
                     }
                 }
             );
@@ -92,7 +111,15 @@
 
 <div class="popup">
     {#if isError}
-        <div class="error">{errorMessage}</div>
+        <div class="error">
+            {errorMessage}
+            {#if errorLink}
+                <a
+                    style="padding-left: 10px"
+                    target="_blank"
+                    href="https://github.com/countnazgul/qlik-qmc-table-export#browser-permissions">Info</a>
+            {/if}
+        </div>
     {/if}
 
     {#if !isError}
