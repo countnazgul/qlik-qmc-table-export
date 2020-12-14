@@ -16,10 +16,18 @@ As far as I can see it's working. More tests have to be performed
 
 
 ## Qlik Version
-Tested with `Qlik Sense June 2020`
+Tested with versions:
+
+* `Qlik Sense November 2018`
+* `Qlik Sense June 2020`
 
 ## Browser permissions
 
 The extension is set to have access only to:
 * `activeTab` - the currently active tab
 * `https://*/qmc/*` and `https://*/*/qmc/*` - all URLs matching these patterns. In general only the QMC link (or QMC link with virtual proxy prefix)
+
+## Store links
+
+* Google - TBA
+* Microsoft - TBA
