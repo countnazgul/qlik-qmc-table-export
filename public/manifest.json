@@ -1,0 +1,29 @@
+{
+    "name": "Svelte Typescript Chrome Extension Boilerplate",
+    "description": "Boilerplate for Chrome Extension Svelte Typescript project",
+    "version": "1.0",
+    "manifest_version": 2,
+    "icons": {
+        "16": "icons/icon16.png",
+        "48": "icons/icon48.png",
+        "128": "icons/icon128.png"
+    },
+    "content_scripts": [
+        {
+            "matches": [
+                "<all_urls>"
+            ],
+            "js": [
+                "build/content_script.js"
+            ]
+        }
+    ],
+    "browser_action": {
+        "default_popup": "popup.html"
+    },
+    "permissions": [
+        "tabs",
+        "http://*/*",
+        "https://*/*"
+    ]
+}
