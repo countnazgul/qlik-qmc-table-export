@@ -29,5 +29,5 @@ The extension is set to have access only to:
 
 ## Store links
 
-* Google - TBA
-* Microsoft - TBA
+* Chrome Web Store - TBA
+* [Edge (Chromium) Add-ons Store](https://microsoftedge.microsoft.com/addons/detail/export-qlik-sense-qmc-tab/blejofjglpgmigmclppeokgfaknefnek)
