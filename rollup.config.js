@@ -4,6 +4,7 @@ import typescript from "@rollup/plugin-typescript";
 import svelte from "rollup-plugin-svelte";
 import { terser } from "rollup-plugin-terser";
 import sveltePreprocess from "svelte-preprocess";
+import replace from "rollup-plugin-replace";
 
 const production = !process.env.ROLLUP_WATCH;
 
@@ -16,16 +17,16 @@ function createConfig(filename, useSvelte = false) {
         },
         plugins: [
             useSvelte &&
-                svelte({
-                    // enable run-time checks when not in production
-                    dev: !production,
-                    // we'll extract any component CSS out into
-                    // a separate file - better for performance
-                    css: css => {
-                        css.write(`${filename}.css`, false);
-                    },
-                    preprocess: sveltePreprocess(),
-                }),
+            svelte({
+                // enable run-time checks when not in production
+                dev: !production,
+                // we'll extract any component CSS out into
+                // a separate file - better for performance
+                css: css => {
+                    css.write(`${filename}.css`, false);
+                },
+                preprocess: sveltePreprocess(),
+            }),
 
             // If you have external dependencies installed from
             // npm, you'll most likely need these plugins. In
@@ -38,7 +39,9 @@ function createConfig(filename, useSvelte = false) {
             }),
             commonjs(),
             typescript(),
-
+            replace({
+                "process.env.NODE_ENV": JSON.stringify('production')
+            }),
             // If we're building for production (npm run build
             // instead of npm run dev), minify
             production && terser(),

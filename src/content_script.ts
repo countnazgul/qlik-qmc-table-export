@@ -10,8 +10,13 @@ const customPropClass: string = "qmc-table-value";
 
 chrome.runtime.onMessage.addListener(
     function (request, sender, sendResponse) {
-        if (request.message === "getTableData") {
-            let csvData = getTableData();
+        if (request.message === "getTableDataComma") {
+            let csvData = getTableData(false);
+            sendResponse(csvData);
+        }
+
+        if (request.message === "getTableDataTab") {
+            let csvData = getTableData(true);
             sendResponse(csvData);
         }
 
@@ -38,7 +43,9 @@ function checkForTables(): IReturn {
     return { error: false }
 }
 
-function getTableData(): IReturn {
+function getTableData(isTab: boolean): IReturn {
+    let separator: string = isTab ? '\t' : ','
+
     let headers = document.querySelectorAll(headersQuery)
 
     let data = []
@@ -49,7 +56,7 @@ function getTableData(): IReturn {
         h.push(`${text}`)
     }
 
-    data.push(h.join(','))
+    data.push(h.join(separator))
 
     let table = document.querySelectorAll(tableQuery)
 
@@ -75,7 +82,7 @@ function getTableData(): IReturn {
             rowData.push(`${text}`)
         }
 
-        data.push(rowData.join(','))
+        data.push(rowData.join(separator))
     }
 
     return {
