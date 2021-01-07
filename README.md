@@ -32,5 +32,5 @@ The extension is set to have access only to:
 
 Install the extension from the official stores:
 
-- Chrome Web Store - TBA
+- [Chrome Web Store](https://chrome.google.com/webstore/detail/export-qlik-sense-qmc-tab/dbnjjihpapafmihpnionckfipbmalhko)
 - [Edge (Chromium) Add-ons Store](https://microsoftedge.microsoft.com/addons/detail/export-qlik-sense-qmc-tab/blejofjglpgmigmclppeokgfaknefnek)
