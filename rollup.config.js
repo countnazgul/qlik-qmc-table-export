@@ -2,8 +2,8 @@ import commonjs from "@rollup/plugin-commonjs";
 import resolve from "@rollup/plugin-node-resolve";
 import typescript from "@rollup/plugin-typescript";
 import svelte from "rollup-plugin-svelte";
-import { terser } from "rollup-plugin-terser";
-import sveltePreprocess from "svelte-preprocess";
+import terser from "@rollup/plugin-terser";
+import { sveltePreprocess } from "svelte-preprocess";
 import replace from "rollup-plugin-replace";
 
 const production = !process.env.ROLLUP_WATCH;
@@ -18,14 +18,20 @@ function createConfig(filename, useSvelte = false) {
         plugins: [
             useSvelte &&
             svelte({
-                // enable run-time checks when not in production
-                dev: !production,
-                // we'll extract any component CSS out into
-                // a separate file - better for performance
-                css: css => {
-                    css.write(`${filename}.css`, false);
+                emitCss: false,
+                compilerOptions: {
+                    dev: !production
                 },
                 preprocess: sveltePreprocess(),
+                onwarn: (warning, handler) => {
+                    if (warning.code === 'a11y_click_events_have_key_events') return;
+                    if (warning.code === 'a11y_no_static_element_interactions') return;
+                    if (warning.code === 'a11y_no_noninteractive_tabindex') return;
+                    if (warning.code === 'a11y_no_noninteractive_element_interactions') return;
+                    if (warning.code === 'a11y-click-events-have-key-events') return;
+                    if (warning.code === 'a11y-no-static-element-interactions') return;
+                    handler(warning);
+                }
             }),
 
             // If you have external dependencies installed from
