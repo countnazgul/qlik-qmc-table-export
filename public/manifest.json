@@ -1,8 +1,8 @@
 {
     "name": "Export Qlik Sense QMC tables as CSV",
     "description": "Extension to export Qlik QMC tables to CSV",
-    "version": "0.2.0",
-    "manifest_version": 2,
+    "version": "0.3.0",
+    "manifest_version": 3,
     "icons": {
         "16": "icons/icon16.png",
         "48": "icons/icon48.png",
@@ -20,7 +20,7 @@
             ]
         }
     ],
-    "browser_action": {
+    "action": {
         "default_popup": "popup.html"
     },
     "permissions": [

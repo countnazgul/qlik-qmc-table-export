@@ -46,7 +46,7 @@ function checkForTables(): IReturn {
 function getTableData(isTab: boolean): IReturn {
     let separator: string = isTab ? '\t' : ','
 
-    let headers = document.querySelectorAll(headersQuery)
+    let headers = document.querySelectorAll<HTMLElement>(headersQuery)
 
     let data = []
     let h = []
@@ -58,7 +58,7 @@ function getTableData(isTab: boolean): IReturn {
 
     data.push(h.join(separator))
 
-    let table = document.querySelectorAll(tableQuery)
+    let table = document.querySelectorAll<HTMLTableElement>(tableQuery)
 
     for (var i = 0, row; row = table[0].rows[i]; i++) {
         let rowData = []
