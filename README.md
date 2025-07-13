@@ -34,3 +34,4 @@ Install the extension from the official stores:
 
 - [Chrome Web Store](https://chrome.google.com/webstore/detail/export-qlik-sense-qmc-tab/dbnjjihpapafmihpnionckfipbmalhko)
 - [Edge (Chromium) Add-ons Store](https://microsoftedge.microsoft.com/addons/detail/export-qlik-sense-qmc-tab/blejofjglpgmigmclppeokgfaknefnek)
+- [Firefox Add-ons Store](https://addons.mozilla.org/en-GB/firefox/addon/qlik-sense-qmc-tables-as-csv/)
