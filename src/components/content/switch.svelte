@@ -72,5 +72,5 @@
         id="id-name--1"
         name="set-name"
         class="switch-input" />
-    <label for="id-name--1" class="switch-label" />
+    <label for="id-name--1" class="switch-label"></label>
 </div>

@@ -3,6 +3,10 @@
         "dedupe",
         "iife",
         "lightgray",
+        "onprimary",
+        "onsurface",
+        "onwarn",
+        "sveltestrap",
         "zensele"
     ]
 }

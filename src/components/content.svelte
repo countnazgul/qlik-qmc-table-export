@@ -45,7 +45,7 @@
 <div class="ui">
     <div class="titles">
         <div class="title">Export to CSV or copy to clipboard</div>
-        <div />
+        <div></div>
         {#if showDone}
             <div class="title done" out:fade>Done</div>
         {/if}

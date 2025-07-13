@@ -4,12 +4,15 @@
   import Error from "./error.svelte";
   import Content from "./content.svelte";
 
-  let activeTabId: number;
+  let activeTabId: number = -1;
   let errorMessage: string = "";
   let errorLink: boolean = false;
   let isError: boolean = true;
 
-  function parseResponse(response): boolean {
+  function parseResponse(response: {
+    error: string;
+    message: string;
+  }): boolean {
     if (!response) {
       errorMessage = "Unknown error";
       isError = true;
@@ -26,22 +29,26 @@
       isError = false;
       return true;
     }
+
+    return true;
   }
 
   onMount(async () => {
     chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
-      activeTabId = tabs[0].id;
-      chrome.tabs.sendMessage(activeTabId, { message: "check" }, function (
-        response
-      ) {
-        if (chrome.runtime.lastError) {
-          errorMessage = "No access to this host";
-          errorLink = true;
-          isError = true;
-        } else {
-          parseResponse(response);
+      activeTabId = tabs[0].id || -1;
+      chrome.tabs.sendMessage(
+        activeTabId,
+        { message: "check" },
+        function (response) {
+          if (chrome.runtime.lastError) {
+            errorMessage = "No access to this host";
+            errorLink = true;
+            isError = true;
+          } else {
+            parseResponse(response);
+          }
         }
-      });
+      );
     });
   });
 </script>
@@ -58,5 +65,6 @@
   .popup {
     width: 370px;
     height: 120px;
+    margin: 10px;
   }
 </style>
