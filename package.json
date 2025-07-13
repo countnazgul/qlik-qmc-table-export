@@ -1,7 +1,7 @@
 {
     "name": "qlik-qmc-tables-export",
     "description": "Chrome/Edge (Chromium) extension to export Qlik QMC tables to CSV",
-    "version": "0.2.0",
+    "version": "0.2.1",
     "author": {
         "email": "stefan.stoichev@gmail.com",
         "name": "Stefan Stoichev @countnazgul",
