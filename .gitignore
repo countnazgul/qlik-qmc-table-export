@@ -1,5 +1,6 @@
 *.crx
 *.pem
+*.zip
 /node_modules/
 /public/build/
 
